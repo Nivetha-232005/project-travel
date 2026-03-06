@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container fade-in">
+    <div class="page-header fade-in-up">
+        <h1 class="text-gradient">🔒 Secure Payment</h1>
+        <p>Complete your payment securely with SSL encryption</p>
+    </div>
+
+    <div class="payment-container">
+        <div class="payment-form-section fade-in-left delay-200">
+            <form method="POST" class="payment-form stagger-children">
+                <div class="form-section glass glass-dark fade-in-up delay-100">
+                    <h3 class="text-gradient">💳 Card Details</h3>
+                    
+                    <div class="form-group fade-in-up delay-100">
+                        <label for="cardholder_name">Cardholder Name</label>
+                        <input type="text" id="cardholder_name" name="cardholder_name" 
+                               placeholder="Name on card" class="form-control" required>
+                    </div>
+
+                    <div class="form-group fade-in-up delay-200">
+                        <label for="card_number">Card Number</label>
+                        <input type="text" id="card_number" name="card_number" 
+                               placeholder="1234 5678 9012 3456" maxlength="19" class="form-control" required
+                               pattern="[0-9\s]{19}">
+                        <small>16 digits without spaces or with spaces</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group fade-in-up delay-300">
+                            <label for="expiry">Expiry Date</label>
+                            <input type="text" id="expiry" name="expiry" 
+                                   placeholder="MM/YY" maxlength="5" class="form-control" required>
+                        </div>
+                        <div class="form-group fade-in-up delay-400">
+                            <label for="cvv">CVV <span class="badge badge-info">Security Code</span></label>
+                            <input type="text" id="cvv" name="cvv" 
+                                   placeholder="000" maxlength="3" class="form-control" required
+                                   pattern="[0-9]{3}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section glass glass-dark fade-in-up delay-200">
+                    <h3 class="text-gradient">📍 Billing Address</h3>
+                    
+                    <div class="form-group fade-in-up delay-100">
+                        <label for="address">Street Address</label>
+                        <input type="text" id="address" name="address" 
+                               placeholder="Enter your address" class="form-control" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group fade-in-up delay-200">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" 
+                                   placeholder="City" class="form-control" required>
+                        </div>
+                        <div class="form-group fade-in-up delay-300">
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state" 
+                                   placeholder="State" class="form-control" required>
+                        </div>
+                        <div class="form-group fade-in-up delay-400">
+                            <label for="zipcode">ZIP Code</label>
+                            <input type="text" id="zipcode" name="zipcode" 
+                                   placeholder="ZIP Code" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section glass fade-in-up delay-300">
+                    <label class="checkbox-large fade-in-up delay-100">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <span>I agree to the <a href="#" class="underline-animate">terms and conditions</a> and <a href="#" class="underline-animate">privacy policy</a></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large btn-block btn-glow fade-in-up delay-400">Pay ₹{{ "%.2f"|format(booking.price * 1.05) }}</button>
+            </form>
+        </div>
+
+        <div class="payment-summary-section fade-in-right delay-200">
+            <div class="payment-summary glass glass-dark lift-on-hover">
+                <h3 class="text-gradient">📋 Booking Summary</h3>
+
+                <div class="summary-detail card-hover fade-in-up delay-100">
+                    <h4 class="text-gradient">{{ booking.route.source }} → {{ booking.route.destination }}</h4>
+                    <div class="detail-row">
+                        <span>Journey Date:</span>
+                        <span class="badge badge-info">{{ booking.travel_date.strftime('%A, %B %d, %Y') }}</span>
+                    </div>
+                </div>
+
+                <div class="summary-detail fade-in-up delay-200">
+                    <h4 class="text-gradient">👤 Passenger Information</h4>
+                    <div class="detail-row stagger-children">
+                        <span>Name:</span>
+                        <span class="fade-in-up delay-100">{{ booking.passenger_name }}</span>
+                    </div>
+                    <div class="detail-row stagger-children">
+                        <span>Email:</span>
+                        <span class="fade-in-up delay-100">{{ booking.passenger_email }}</span>
+                    </div>
+                    <div class="detail-row stagger-children">
+                        <span>Age:</span>
+                        <span class="fade-in-up delay-100">{{ booking.passenger_age }}</span>
+                    </div>
+                    <div class="detail-row stagger-children">
+                        <span>Seat:</span>
+                        <span class="seat-badge badge badge-success fade-in-up delay-100">{{ booking.seat_number }}</span>
+                    </div>
+                </div>
+
+                <div class="price-breakdown fade-in-up delay-300">
+                    <h4 class="text-gradient">💰 Price Details</h4>
+                    <div class="price-row fade-in-up delay-100">
+                        <span>Base Fare:</span>
+                        <span>₹{{ "%.2f"|format(booking.price) }}</span>
+                    </div>
+                    <div class="price-row fade-in-up delay-200">
+                        <span>Taxes & Fees (5%):</span>
+                        <span>₹{{ "%.2f"|format(booking.price * 0.05) }}</span>
+                    </div>
+                    <div class="price-row total fade-in-up delay-300">
+                        <span class="text-gradient">Total Amount:</span>
+                        <span class="text-gradient price-highlight">₹{{ "%.2f"|format(booking.price * 1.05) }}</span>
+                    </div>
+                </div>
+
+                <div class="payment-methods fade-in-up delay-400">
+                    <h4 class="text-gradient">✅ Accepted Payment Methods</h4>
+                    <ul class="stagger-children">
+                        <li class="fade-in-up delay-100 badge badge-secondary">💳 Visa, Mastercard, Amex</li>
+                        <li class="fade-in-up delay-200 badge badge-secondary">🏦 Net Banking</li>
+                        <li class="fade-in-up delay-300 badge badge-secondary">📱 Digital Wallets (Google Pay, Apple Pay)</li>
+                        <li class="fade-in-up delay-400 badge badge-secondary">💰 UPI</li>
+                    </ul>
+                </div>
+
+                <div class="security-info glass glow-on-hover fade-in-up delay-500">
+                    <h4 class="text-gradient">🔒 Security Information</h4>
+                    <p>Your payment is protected by:</p>
+                    <ul class="stagger-children">
+                        <li class="fade-in-up delay-100">✓ SSL/TLS Encryption</li>
+                        <li class="fade-in-up delay-200">✓ PCI DSS Compliance</li>
+                        <li class="fade-in-up delay-300">✓ 3D Secure Authentication</li>
+                        <li class="fade-in-up delay-400">✓ Fraud Detection System</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Format card number input
+    document.getElementById('card_number').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        let formattedValue = value.replace(/\B(?=(\d{4})+(?!\d))/g, ' ');
+        e.target.value = formattedValue;
+    });
+
+    // Format expiry date
+    document.getElementById('expiry').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length >= 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        }
+        e.target.value = value;
+    });
+
+    // Format CVV (only numbers)
+    document.getElementById('cvv').addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/\D/g, '');
+    });
+</script>
+{% endblock %}

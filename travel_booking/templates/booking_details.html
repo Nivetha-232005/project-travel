@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container fade-in">
+    <div class="page-header fade-in-up">
+        <h1 class="text-gradient">📋 Booking Details</h1>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline underline-animate fade-in-up delay-200">← Back to Dashboard</a>
+    </div>
+
+    <div class="details-container">
+        <div class="details-header glass glass-dark lift-on-hover fade-in-up delay-300">
+            <div class="ref-section card-hover fade-in-up delay-100">
+                <span class="label">Booking Reference:</span>
+                <span class="reference badge badge-success">{{ booking.booking_ref }}</span>
+                <button class="btn btn-sm btn-outline underline-animate fade-in-up delay-100" onclick="copyToClipboard('{{ booking.booking_ref }}')">Copy</button>
+            </div>
+            <div class="status-section stagger-children fade-in-up delay-200">
+                <span class="status-badge confirmed badge badge-success fade-in-up delay-100">{{ booking.status }}</span>
+                <span class="payment-badge paid badge badge-info fade-in-up delay-200">{{ booking.payment_status }}</span>
+            </div>
+        </div>
+
+        <div class="details-grid stagger-children">
+            <div class="details-panel glass glass-dark lift-on-hover fade-in-up delay-100">
+                <h3 class="text-gradient">🛫 Journey Information</h3>
+                
+                <div class="journey-detail-large card-hover">
+                    <div class="journey-endpoint text-gradient">
+                        <div class="endpoint-city">{{ booking.route.source }}</div>
+                        <div class="endpoint-time">{{ booking.route.departure_time.strftime('%H:%M') }}</div>
+                        <div class="endpoint-date badge badge-info">{{ booking.route.departure_time.strftime('%b %d, %Y') }}</div>
+                    </div>
+                    
+                    <div class="journey-path glow-on-hover">
+                        <div class="path-duration">{{ booking.route.duration }}</div>
+                        <div class="path-type float">
+                            {% if booking.route.transport_type == 'Flight' %}
+                                ✈️ Flight
+                            {% elif booking.route.transport_type == 'Bus' %}
+                                🚌 Bus
+                            {% else %}
+                                🚂 Train
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="journey-endpoint text-gradient">
+                        <div class="endpoint-city">{{ booking.route.destination }}</div>
+                        <div class="endpoint-time">{{ booking.route.arrival_time.strftime('%H:%M') }}</div>
+                        <div class="endpoint-date badge badge-info">{{ booking.route.arrival_time.strftime('%b %d, %Y') }}</div>
+                    </div>
+                </div>
+
+                <div class="detail-items stagger-children">
+                    <div class="detail-item fade-in-up delay-100">
+                        <span class="detail-label">Transport Type:</span>
+                        <span class="detail-value badge badge-primary">{{ booking.route.transport_type }}</span>
+                    </div>
+                    <div class="detail-item fade-in-up delay-200">
+                        <span class="detail-label">Amenities:</span>
+                        <span class="detail-value">{{ booking.route.amenities }}</span>
+                    </div>
+                    <div class="detail-item fade-in-up delay-300">
+                        <span class="detail-label">Total Duration:</span>
+                        <span class="detail-value">{{ booking.route.duration }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-panel glass glass-dark lift-on-hover fade-in-up delay-200">
+                <h3 class="text-gradient">👤 Passenger Details</h3>
+                
+                <div class="detail-items stagger-children">
+                    <div class="detail-item fade-in-up delay-100">
+                        <span class="detail-label">Name:</span>
+                        <span class="detail-value">{{ booking.passenger_name }}</span>
+                    </div>
+                    <div class="detail-item fade-in-up delay-200">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value">{{ booking.passenger_email }}</span>
+                    </div>
+                    <div class="detail-item fade-in-up delay-300">
+                        <span class="detail-label">Phone:</span>
+                        <span class="detail-value">{{ booking.passenger_phone }}</span>
+                    </div>
+                    <div class="detail-item fade-in-up delay-400">
+                        <span class="detail-label">Age:</span>
+                        <span class="detail-value">{{ booking.passenger_age }} years</span>
+                    </div>
+                </div>
+
+                <h4 class="text-gradient">🎫 Seat Information</h4>
+                <div class="seat-info card-hover">
+                    <div class="seat-large badge badge-success text-gradient bounce">{{ booking.seat_number }}</div>
+                    <p class="fade-in-up delay-100">Seat Number: <strong>{{ booking.seat_number }}</strong></p>
+                </div>
+            </div>
+
+            <div class="details-panel glass glass-dark lift-on-hover fade-in-up delay-300">
+                <h3 class="text-gradient">💰 Price Breakdown</h3>
+                
+                <div class="price-breakdown-detail stagger-children">
+                    <div class="price-row fade-in-up delay-100">
+                        <span class="price-label">Base Fare:</span>
+                        <span class="price-value">₹{{ "%.2f"|format(booking.price) }}</span>
+                    </div>
+                    <div class="price-row fade-in-up delay-200">
+                        <span class="price-label">Taxes & Fees (5%):</span>
+                        <span class="price-value">₹{{ "%.2f"|format(booking.price * 0.05) }}</span>
+                    </div>
+                    <div class="price-row total fade-in-up delay-300">
+                        <span class="price-label text-gradient">Total Amount:</span>
+                        <span class="price-value text-gradient price-highlight">₹{{ "%.2f"|format(booking.price * 1.05) }}</span>
+                    </div>
+                </div>
+
+                <h4 class="text-gradient">✅ Payment Information</h4>
+                <div class="detail-items fade-in-up delay-400">
+                    <div class="detail-item">
+                        <span class="detail-label">Payment Status:</span>
+                        <span class="detail-value paid-status">{{ booking.payment_status }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Booking Date:</span>
+                        <span class="detail-value">{{ booking.booking_date.strftime('%b %d, %Y %H:%M') }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-panel full-width glass glass-dark lift-on-hover fade-in-up delay-400">
+                <h3 class="text-gradient">🚫 Cancellation Policy</h3>
+                <div class="policy-details stagger-children">
+                    <p class="fade-in-up delay-100">✓ <strong>Free Cancellation:</strong> Up to 24 hours before departure</p>
+                    <p class="fade-in-up delay-200">✓ <strong>Partial Refund:</strong> 50% refund if cancelled 12-24 hours before departure</p>
+                    <p class="fade-in-up delay-300">✓ <strong>No Refund:</strong> If cancelled less than 12 hours before departure</p>
+                    <p class="fade-in-up delay-400"><strong>Status:</strong> Your current booking status is <strong class="text-gradient">{{ booking.status }}</strong></p>
+                </div>
+
+                {% if booking.status == 'Confirmed' and booking.travel_date > now %}
+                    <form method="POST" action="{{ url_for('cancel_booking', booking_ref=booking.booking_ref) }}">
+                        <button type="submit" class="btn btn-danger fade-in-up delay-500" onclick="return confirm('Are you sure you want to cancel this booking? This action cannot be undone.')">
+                            ❌ Cancel This Booking
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="actions stagger-children fade-in-up delay-500">
+            <button class="btn btn-secondary btn-glow fade-in-up delay-100" onclick="window.print()">🖨️ Print Booking</button>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline underline-animate fade-in-up delay-200">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Booking reference copied to clipboard!');
+        });
+    }
+</script>
+{% endblock %}

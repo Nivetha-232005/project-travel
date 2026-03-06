@@ -1,0 +1,408 @@
+{% extends "base.html" %}
+
+{% block title %}Bus Ticket Booking - TravelBook{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Page Header -->
+    <section class="page-header-section">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h1>🚌 Bus Ticket Booking</h1>
+                    <p>Find and book the best bus tickets for your journey</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Bus Search Form -->
+    <section class="bus-search-section">
+        <div class="container">
+            <div class="search-container bus-search-container">
+                <form method="POST" action="{{ url_for('search') }}" class="bus-search-form">
+                    <h2 class="form-title">Search Buses</h2>
+                    
+                    <div class="bus-form-grid">
+                        <div class="form-group">
+                            <label for="source">From</label>
+                            <input type="text" id="source" name="source" placeholder="Departure city" required list="cities" class="bus-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">To</label>
+                            <input type="text" id="destination" name="destination" placeholder="Destination city" required list="cities" class="bus-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="travel_date">Travel Date</label>
+                            <input type="date" id="travel_date" name="travel_date" required class="bus-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="return_date">Return Date (Optional)</label>
+                            <input type="date" id="return_date" name="return_date" class="bus-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="passengers">Passengers</label>
+                            <select id="passengers" name="passengers" class="bus-input">
+                                <option value="1">1 Passenger</option>
+                                <option value="2">2 Passengers</option>
+                                <option value="3">3 Passengers</option>
+                                <option value="4">4 Passengers</option>
+                                <option value="5">5 Passengers</option>
+                                <option value="6">6+ Passengers</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button type="submit" class="btn btn-primary btn-search">
+                                <span class="search-icon">🔍</span> Search Buses
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <datalist id="cities">
+                        <option value="New York">
+                        <option value="Los Angeles">
+                        <option value="Chicago">
+                        <option value="Miami">
+                        <option value="Boston">
+                        <option value="Philadelphia">
+                        <option value="San Francisco">
+                        <option value="Denver">
+                    </datalist>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bus Types Guide -->
+    <section class="bus-types-section">
+        <div class="container">
+            <h2 class="section-title">Our Bus Fleet</h2>
+            <div class="bus-types-grid">
+                <div class="bus-type-card">
+                    <div class="bus-type-header ac">
+                        <span class="bus-type-icon">❄️</span>
+                        <span class="bus-type-name">AC Buses</span>
+                    </div>
+                    <div class="bus-type-details">
+                        <p class="bus-feature">Air Conditioned</p>
+                        <p class="bus-feature">Comfortable seats</p>
+                        <p class="bus-feature">WiFi available</p>
+                        <p class="price-tag">From $45</p>
+                    </div>
+                </div>
+
+                <div class="bus-type-card">
+                    <div class="bus-type-header sleeper">
+                        <span class="bus-type-icon">😴</span>
+                        <span class="bus-type-name">Sleeper Buses</span>
+                    </div>
+                    <div class="bus-type-details">
+                        <p class="bus-feature">Reclining beds</p>
+                        <p class="bus-feature">Extra leg space</p>
+                        <p class="bus-feature">Charging ports</p>
+                        <p class="price-tag">From $65</p>
+                    </div>
+                </div>
+
+                <div class="bus-type-card">
+                    <div class="bus-type-header express">
+                        <span class="bus-type-icon">⚡</span>
+                        <span class="bus-type-name">Express Buses</span>
+                    </div>
+                    <div class="bus-type-details">
+                        <p class="bus-feature">Direct routes</p>
+                        <p class="bus-feature">Fast travel</p>
+                        <p class="bus-feature">Premium meals</p>
+                        <p class="price-tag">From $75</p>
+                    </div>
+                </div>
+
+                <div class="bus-type-card">
+                    <div class="bus-type-header luxury">
+                        <span class="bus-type-icon">👑</span>
+                        <span class="bus-type-name">Luxury Buses</span>
+                    </div>
+                    <div class="bus-type-details">
+                        <p class="bus-feature">Premium comfort</p>
+                        <p class="bus-feature">Entertainment system</p>
+                        <p class="bus-feature">Gourmet meals</p>
+                        <p class="price-tag">From $120</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Bus Routes -->
+    <section class="featured-buses">
+        <div class="container">
+            <h2 class="section-title">Popular Bus Routes</h2>
+            <div class="buses-list">
+                <!-- Bus Route 1 -->
+                <div class="bus-card">
+                    <div class="bus-card-header">
+                        <div class="bus-info">
+                            <div class="bus-title">
+                                <span class="bus-operator">🚌 City Express</span>
+                                <span class="bus-type-badge ac">AC • Sleeper</span>
+                            </div>
+                            <p class="bus-route">New York → Los Angeles</p>
+                        </div>
+                        <div class="bus-price">
+                            <span class="price-value">$49.99</span>
+                            <span class="seats-available">12 seats left</span>
+                        </div>
+                    </div>
+
+                    <div class="bus-journey-details">
+                        <div class="journey-leg">
+                            <div class="time-point">
+                                <span class="time">08:00 PM</span>
+                                <span class="location">New York (NYC)</span>
+                            </div>
+                            <div class="journey-line">
+                                <span class="duration">28h 30m</span>
+                            </div>
+                            <div class="time-point">
+                                <span class="time">12:30 PM</span>
+                                <span class="location">Los Angeles (LAX)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bus-amenities">
+                        <span class="amenity">📶 Free WiFi</span>
+                        <span class="amenity">🍔 Meals</span>
+                        <span class="amenity">🛏️ Sleeper</span>
+                        <span class="amenity">⚡ Charging</span>
+                    </div>
+
+                    <div class="bus-card-footer">
+                        <div class="rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-score">4.8/5</span>
+                        </div>
+                        <a href="{{ url_for('booking') }}" class="btn btn-primary btn-small">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Bus Route 2 -->
+                <div class="bus-card">
+                    <div class="bus-card-header">
+                        <div class="bus-info">
+                            <div class="bus-title">
+                                <span class="bus-operator">🚌 Comfort Travels</span>
+                                <span class="bus-type-badge express">Express</span>
+                            </div>
+                            <p class="bus-route">Chicago → Miami</p>
+                        </div>
+                        <div class="bus-price">
+                            <span class="price-value">$35.99</span>
+                            <span class="seats-available">8 seats left</span>
+                        </div>
+                    </div>
+
+                    <div class="bus-journey-details">
+                        <div class="journey-leg">
+                            <div class="time-point">
+                                <span class="time">06:00 AM</span>
+                                <span class="location">Chicago (ORD)</span>
+                            </div>
+                            <div class="journey-line">
+                                <span class="duration">22h 15m</span>
+                            </div>
+                            <div class="time-point">
+                                <span class="time">04:15 PM</span>
+                                <span class="location">Miami (MIA)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bus-amenities">
+                        <span class="amenity">📺 Entertainment</span>
+                        <span class="amenity">🍔 Snacks</span>
+                        <span class="amenity">🅿️ Parking</span>
+                        <span class="amenity">💺 Spacious</span>
+                    </div>
+
+                    <div class="bus-card-footer">
+                        <div class="rating">
+                            <span class="stars">⭐⭐⭐⭐</span>
+                            <span class="rating-score">4.5/5</span>
+                        </div>
+                        <a href="{{ url_for('booking') }}" class="btn btn-primary btn-small">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Bus Route 3 -->
+                <div class="bus-card">
+                    <div class="bus-card-header">
+                        <div class="bus-info">
+                            <div class="bus-title">
+                                <span class="bus-operator">🚌 Luxury LineX</span>
+                                <span class="bus-type-badge luxury">Luxury</span>
+                            </div>
+                            <p class="bus-route">Boston → Philadelphia</p>
+                        </div>
+                        <div class="bus-price">
+                            <span class="price-value">$28.99</span>
+                            <span class="seats-available">15 seats left</span>
+                        </div>
+                    </div>
+
+                    <div class="bus-journey-details">
+                        <div class="journey-leg">
+                            <div class="time-point">
+                                <span class="time">09:00 AM</span>
+                                <span class="location">Boston (BOS)</span>
+                            </div>
+                            <div class="journey-line">
+                                <span class="duration">4h 00m</span>
+                            </div>
+                            <div class="time-point">
+                                <span class="time">01:00 PM</span>
+                                <span class="location">Philadelphia (PHL)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bus-amenities">
+                        <span class="amenity">👑 Premium</span>
+                        <span class="amenity">🍽️ Full meals</span>
+                        <span class="amenity">🎬 Movies</span>
+                        <span class="amenity">📱 USB Ports</span>
+                    </div>
+
+                    <div class="bus-card-footer">
+                        <div class="rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-score">4.9/5</span>
+                        </div>
+                        <a href="{{ url_for('booking') }}" class="btn btn-primary btn-small">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bus Features & Benefits -->
+    <section class="bus-benefits-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Buses?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">✅</div>
+                    <h3>Best Prices</h3>
+                    <p>Guaranteed lowest fares with frequent discounts and seasonal offers</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>Safe & Secure</h3>
+                    <p>Professional drivers and modern safety features for your protection</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⏰</div>
+                    <h3>On-Time Guarantee</h3>
+                    <p>Real-time tracking and guaranteed departure & arrival times</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📞</div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer support for all your queries</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💳</div>
+                    <h3>Easy Payments</h3>
+                    <p>Multiple payment options with secure transactions</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎫</div>
+                    <h3>Instant Confirmation</h3>
+                    <p>Get your digital ticket instantly via email and SMS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bus Booking Process -->
+    <section class="booking-process-section">
+        <div class="container">
+            <h2 class="section-title">How to Book Your Bus Ticket</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Search</h3>
+                        <p>Enter your source, destination, and travel date</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Select</h3>
+                        <p>Choose your preferred bus and seat</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Enter Details</h3>
+                        <p>Fill in passenger information</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Pay & Confirm</h3>
+                        <p>Make payment and get instant confirmation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offers -->
+    <section class="special-offers-section">
+        <div class="container">
+            <h2 class="section-title">Special Offers & Promotions</h2>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-badge">🎉 LIMITED</div>
+                    <h3>First Time Discount</h3>
+                    <p class="offer-description">Get 20% off on your first bus booking</p>
+                    <p class="offer-code">Code: <strong>FIRST20</strong></p>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-badge">💰 SAVE MORE</div>
+                    <h3>Group Bookings</h3>
+                    <p class="offer-description">Book 5+ tickets and get 15% discount</p>
+                    <p class="offer-code">Applies automatically</p>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-badge">🎁 LOYALTY</div>
+                    <h3>Rewards Program</h3>
+                    <p class="offer-description">Earn points on every booking and redeem them</p>
+                    <p class="offer-code">Join for free</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Book Your Bus Ticket?</h2>
+            <p>Start your journey with TravelBook today!</p>
+            {% if not session.get('user_id') %}
+                <a href="{{ url_for('register') }}" class="btn btn-large btn-primary">Get Started</a>
+            {% else %}
+                <a href="{{ url_for('booking') }}" class="btn btn-large btn-primary">Book Now</a>
+            {% endif %}
+        </div>
+    </section>
+</main>
+{% endblock %}

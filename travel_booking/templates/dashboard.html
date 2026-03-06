@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container fade-in">
+    {% if session.get('booking_success') %}
+    <div class="alert-success glass glow-on-hover fade-in-down" style="margin: 20px 0; padding: 20px; background: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%); color: white; border-radius: 12px; text-align: center; font-weight: 600;">
+        ✅ Your booking was successfully completed! Check your bookings below.
+    </div>
+    {% endif %}
+    
+    <div class="page-header fade-in-up">
+        <h1 class="text-gradient">My Dashboard</h1>
+        <p>Manage your bookings and profile</p>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="dashboard-sidebar glass glass-dark fade-in-left">
+            <div class="user-card lift-on-hover">
+                <div class="user-avatar glow-on-hover">{{ user.full_name[0] }}</div>
+                <h3 class="text-gradient">{{ user.full_name }}</h3>
+                <p>{{ user.email }}</p>
+                <p>{{ user.phone }}</p>
+                <a href="#" class="btn btn-sm btn-outline underline-animate">Edit Profile</a>
+            </div>
+
+            <div class="sidebar-menu">
+                <a href="#upcoming" class="sidebar-link active slide-in-left">Upcoming Trips</a>
+                <a href="#history" class="sidebar-link slide-in-left delay-100">Booking History</a>
+                <a href="#" class="sidebar-link slide-in-left delay-200">Saved Journeys</a>
+                <a href="#" class="sidebar-link slide-in-left delay-300">Settings</a>
+                <a href="{{ url_for('logout') }}" class="sidebar-link slide-in-left delay-400">Logout</a>
+            </div>
+        </div>
+
+        <div class="dashboard-content fade-in-right">
+            <!-- Upcoming Bookings -->
+            <section id="upcoming" class="dashboard-section fade-in-up delay-200">
+                <h2 class="text-gradient">Upcoming Trips</h2>
+                
+                {% if upcoming_bookings %}
+                    <div class="bookings-grid">
+                        {% for booking in upcoming_bookings %}
+                            <div class="booking-card card-hover lift-on-hover fade-in-up delay-{{ loop.index|string }}00">
+                                <div class="booking-header">
+                                    <span class="booking-ref badge badge-primary">{{ booking.booking_ref }}</span>
+                                    <span class="status-badge confirmed badge badge-success">{{ booking.status }}</span>
+                                </div>
+
+                                <div class="journey-info">
+                                    <div class="journey-point">
+                                        <div class="place-code text-gradient">{{ booking.route.source[:3].upper() }}</div>
+                                        <div class="place-name">{{ booking.route.source }}</div>
+                                    </div>
+                                    <div class="journey-icon float">
+                                        {% if booking.route.transport_type == 'Flight' %}
+                                            ✈️
+                                        {% elif booking.route.transport_type == 'Bus' %}
+                                            🚌
+                                        {% else %}
+                                            🚂
+                                        {% endif %}
+                                    </div>
+                                    <div class="journey-point">
+                                        <div class="place-code text-gradient">{{ booking.route.destination[:3].upper() }}</div>
+                                        <div class="place-name">{{ booking.route.destination }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="booking-details">
+                                    <p><strong>Date:</strong> {{ booking.travel_date.strftime('%b %d, %Y') }}</p>
+                                    <p><strong>Time:</strong> {{ booking.travel_date.strftime('%H:%M') }}</p>
+                                    <p><strong>Seat:</strong> <span class="badge badge-info">{{ booking.seat_number }}</span></p>
+                                    <p><strong>Price:</strong> <span class="price-highlight">₹{{ "%.2f"|format(booking.price) }}</span></p>
+                                </div>
+
+                                <div class="booking-actions stagger-children">
+                                    <a href="{{ url_for('booking_details', booking_ref=booking.booking_ref) }}" class="btn btn-sm btn-primary btn-glow fade-in-down delay-100">View Details</a>
+                                    <form method="POST" action="{{ url_for('cancel_booking', booking_ref=booking.booking_ref) }}" style="display:inline;">
+                                        <button type="submit" class="btn btn-sm btn-danger fade-in-down delay-200" onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state fade-in zoom-in">
+                        <div class="empty-icon">🚫</div>
+                        <p>No upcoming trips</p>
+                        <a href="{{ url_for('index') }}" class="btn btn-primary btn-glow">Book a Trip</a>
+                    </div>
+                {% endif %}
+            </section>
+
+            <!-- Booking History -->
+            <section id="history" class="dashboard-section fade-in-up delay-400">
+                <h2 class="text-gradient">Booking History</h2>
+                
+                {% if past_bookings %}
+                    <div class="bookings-list">
+                        {% for booking in past_bookings %}
+                            <div class="booking-list-item card-hover lift-on-hover fade-in-up delay-{{ loop.index|string }}00">
+                                <div class="booking-list-info">
+                                    <strong class="badge badge-secondary">{{ booking.booking_ref }}</strong>
+                                    <span class="date">{{ booking.booking_date.strftime('%b %d, %Y') }}</span>
+                                </div>
+                                <div class="booking-list-route">
+                                    {{ booking.route.source }} → {{ booking.route.destination }}
+                                </div>
+                                <div class="booking-list-price text-gradient">
+                                    ₹{{ "%.2f"|format(booking.price) }}
+                                </div>
+                                <div class="booking-list-status">
+                                    <span class="status-badge badge badge-info">{{ booking.status }}</span>
+                                </div>
+                                <a href="{{ url_for('booking_details', booking_ref=booking.booking_ref) }}" class="btn btn-sm btn-outline underline-animate">View</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state fade-in zoom-in">
+                        <div class="empty-icon">📋</div>
+                        <p>No booking history</p>
+                    </div>
+                {% endif %}
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

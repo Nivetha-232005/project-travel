@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container fade-in">
+    <div class="page-header fade-in-up">
+        <h1 class="text-gradient">✏️ Edit Route</h1>
+        <a href="{{ url_for('admin') }}" class="btn btn-sm btn-outline underline-animate fade-in-up delay-200">← Back to Admin</a>
+    </div>
+
+    <div class="form-container fade-in-up delay-300">
+        <form method="POST" class="admin-form glass glass-dark stagger-children">
+            <div class="form-section glass lift-on-hover fade-in-up delay-100">
+                <h3 class="text-gradient">🛣️ Route Information</h3>
+
+                <div class="form-row">
+                    <div class="form-group fade-in-up delay-100">
+                        <label for="source">Source City <span class="text-danger">*</span></label>
+                        <input type="text" id="source" name="source" value="{{ route.source }}" class="form-control" required>
+                    </div>
+                    <div class="form-group fade-in-up delay-200">
+                        <label for="destination">Destination City <span class="text-danger">*</span></label>
+                        <input type="text" id="destination" name="destination" value="{{ route.destination }}" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group fade-in-up delay-300">
+                        <label for="transport_type">Transport Type <span class="text-danger">*</span></label>
+                        <select id="transport_type" name="transport_type" class="form-control" required>
+                            <option value="Flight" {% if route.transport_type == 'Flight' %}selected{% endif %}>✈️ Flight</option>
+                            <option value="Bus" {% if route.transport_type == 'Bus' %}selected{% endif %}>🚌 Bus</option>
+                            <option value="Train" {% if route.transport_type == 'Train' %}selected{% endif %}>🚂 Train</option>
+                        </select>
+                    </div>
+                    <div class="form-group fade-in-up delay-400">
+                        <label for="price">Price (₹) <span class="text-danger">*</span></label>
+                        <input type="number" id="price" name="price" value="{{ route.price }}" class="form-control" min="0" step="0.01" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section glass lift-on-hover fade-in-up delay-200">
+                <h3 class="text-gradient">👥 Capacity</h3>
+
+                <div class="form-row">
+                    <div class="form-group fade-in-up delay-100">
+                        <label for="total_seats">Total Seats</label>
+                        <input type="number" id="total_seats" name="total_seats" value="{{ route.total_seats }}" class="form-control" disabled>
+                        <small>Cannot be changed after route creation</small>
+                    </div>
+                    <div class="form-group fade-in-up delay-200">
+                        <label for="available_seats">Available Seats <span class="text-danger">*</span></label>
+                        <input type="number" id="available_seats" name="available_seats" value="{{ route.available_seats }}" class="form-control" min="0" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section glass lift-on-hover fade-in-up delay-300">
+                <h3 class="text-gradient">📅 Journey Information</h3>
+
+                <div class="form-row">
+                    <div class="form-group fade-in-up delay-100">
+                        <label>Departure Time</label>
+                        <input type="text" value="{{ route.departure_time.strftime('%Y-%m-%d %H:%M') }}" class="form-control" disabled>
+                        <small>Cannot be changed after route creation</small>
+                    </div>
+                    <div class="form-group fade-in-up delay-200">
+                        <label>Duration</label>
+                        <input type="text" value="{{ route.duration }}" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section glass lift-on-hover fade-in-up delay-400">
+                <h3 class="text-gradient">🎁 Additional Information</h3>
+
+                <div class="form-row">
+                    <div class="form-group full-width fade-in-up delay-100">
+                        <label for="amenities">Amenities</label>
+                        <textarea id="amenities" name="amenities" class="form-control" rows="3">{{ route.amenities }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section stagger-children fade-in-up delay-500">
+                <button type="submit" class="btn btn-primary btn-large btn-glow fade-in-up delay-100">Update Route</button>
+                <a href="{{ url_for('admin') }}" class="btn btn-outline btn-large underline-animate fade-in-up delay-200">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

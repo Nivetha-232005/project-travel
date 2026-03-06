@@ -1,0 +1,721 @@
+/* ============================================
+   BUS BOOKING PAGE STYLES
+   ============================================ */
+
+/* ============== PAGE HEADER SECTION ============== */
+
+.page-header-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0050CC 50%, var(--secondary-color) 100%);
+    color: white;
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.page-header-section .page-header {
+    position: relative;
+    z-index: 1;
+}
+
+.page-header-section h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.page-header-section p {
+    font-size: 18px;
+    opacity: 0.95;
+}
+
+/* ============== BUS SEARCH SECTION ============== */
+
+.bus-search-section {
+    background-color: var(--white-bg);
+    padding: 50px 0 40px;
+    margin: -30px 0 0;
+    position: relative;
+    z-index: 10;
+}
+
+.bus-search-container {
+    background: linear-gradient(135deg, #F0F4F8 0%, #E8F0F7 100%);
+    padding: 45px;
+    border-radius: 14px;
+    box-shadow: var(--shadow-large);
+    border: 1px solid rgba(0, 111, 255, 0.05);
+}
+
+.bus-search-form {
+    width: 100%;
+}
+
+.form-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--dark-text);
+    text-align: center;
+}
+
+.bus-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.bus-input {
+    padding: 13px 16px !important;
+    border: 2px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+}
+
+.bus-input:focus {
+    outline: none !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 4px var(--primary-light) !important;
+}
+
+.btn-search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.search-icon {
+    font-size: 16px;
+}
+
+/* ============== BUS TYPES SECTION ============== */
+
+.bus-types-section {
+    padding: 80px 0;
+    background-color: var(--light-bg);
+}
+
+.bus-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.bus-type-card {
+    background: linear-gradient(135deg, var(--white-bg), var(--light-bg));
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 2px solid var(--border-color);
+}
+
+.bus-type-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-large);
+    border-color: var(--primary-color);
+}
+
+.bus-type-header {
+    padding: 25px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bus-type-header.ac {
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+}
+
+.bus-type-header.sleeper {
+    background: linear-gradient(135deg, #7e57c2, #6a1b9a);
+}
+
+.bus-type-header.express {
+    background: linear-gradient(135deg, #ff7043, #e64a19);
+}
+
+.bus-type-header.luxury {
+    background: linear-gradient(135deg, #ffd700, #ffb300);
+    color: var(--dark-text);
+}
+
+.bus-type-icon {
+    font-size: 24px;
+}
+
+.bus-type-details {
+    padding: 25px;
+}
+
+.bus-feature {
+    margin: 8px 0;
+    color: var(--gray-text);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bus-feature::before {
+    content: '✓';
+    color: var(--success-color);
+    font-weight: 700;
+}
+
+.price-tag {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid var(--border-color);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* ============== FEATURED BUSES SECTION ============== */
+
+.featured-buses {
+    padding: 80px 0;
+    background-color: var(--white-bg);
+}
+
+.buses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.bus-card {
+    background: linear-gradient(135deg, var(--white-bg), var(--light-bg));
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+.bus-card:hover {
+    box-shadow: var(--shadow-large);
+    transform: translateY(-6px);
+    border-color: var(--primary-color);
+}
+
+.bus-card-header {
+    padding: 25px;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: linear-gradient(135deg, #F8F9FA, #F0F4F8);
+}
+
+.bus-info {
+    flex: 1;
+}
+
+.bus-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+
+.bus-operator {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark-text);
+}
+
+.bus-type-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white;
+}
+
+.bus-type-badge.ac {
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+}
+
+.bus-type-badge.sleeper {
+    background: linear-gradient(135deg, #7e57c2, #6a1b9a);
+}
+
+.bus-type-badge.express {
+    background: linear-gradient(135deg, #ff7043, #e64a19);
+}
+
+.bus-type-badge.luxury {
+    background: linear-gradient(135deg, #ffd700, #ffb300);
+    color: var(--dark-text);
+}
+
+.bus-route {
+    font-size: 14px;
+    color: var(--gray-text);
+    margin: 0;
+}
+
+.bus-price {
+    text-align: right;
+}
+
+.price-value {
+    display: block;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+
+.seats-available {
+    display: block;
+    font-size: 13px;
+    color: var(--success-color);
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+.bus-journey-details {
+    padding: 30px 25px;
+    background-color: var(--white-bg);
+}
+
+.journey-leg {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.time-point {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.time {
+    display: block;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--dark-text);
+}
+
+.location {
+    display: block;
+    font-size: 13px;
+    color: var(--gray-text);
+    margin-top: 4px;
+}
+
+.journey-line {
+    flex: 1;
+    text-align: center;
+    padding: 0 20px;
+    border-bottom: 2px dashed var(--border-color);
+    position: relative;
+}
+
+.journey-line::before {
+    content: '🚌';
+    position: absolute;
+    left: 50%;
+    bottom: -15px;
+    transform: translateX(-50%);
+    font-size: 20px;
+}
+
+.duration {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.bus-amenities {
+    padding: 20px 25px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    background-color: var(--light-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+.amenity {
+    padding: 8px 14px;
+    background: white;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.amenity:hover {
+    background: var(--primary-light);
+    border-color: var(--primary-color);
+}
+
+.bus-card-footer {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #F8F9FA, #F0F4F8);
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stars {
+    font-size: 16px;
+}
+
+.rating-score {
+    font-weight: 700;
+    color: var(--warning-color);
+}
+
+.btn-small {
+    padding: 10px 24px;
+    font-size: 13px;
+}
+
+/* ============== BUS BENEFITS SECTION ============== */
+
+.bus-benefits-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.benefit-card {
+    background: white;
+    padding: 35px 30px;
+    border-radius: 12px;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-large);
+}
+
+.benefit-icon {
+    font-size: 44px;
+    margin-bottom: 18px;
+    display: inline-block;
+}
+
+.benefit-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--dark-text);
+    font-weight: 700;
+}
+
+.benefit-card p {
+    color: var(--gray-text);
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+/* ============== BOOKING PROCESS SECTION ============== */
+
+.booking-process-section {
+    padding: 80px 0;
+    background-color: var(--white-bg);
+}
+
+.process-steps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 40px;
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+    border-radius: 14px;
+}
+
+.step {
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color), #0050CC);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 auto 15px;
+    box-shadow: 0 6px 20px rgba(0, 111, 255, 0.3);
+}
+
+.step-content h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--dark-text);
+    font-weight: 700;
+}
+
+.step-content p {
+    font-size: 13px;
+    color: var(--gray-text);
+}
+
+.step-arrow {
+    font-size: 32px;
+    color: var(--primary-color);
+    font-weight: 800;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* ============== SPECIAL OFFERS SECTION ============== */
+
+.special-offers-section {
+    padding: 80px 0;
+    background-color: var(--light-bg);
+}
+
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.offer-card {
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+}
+
+.offer-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-large);
+}
+
+.offer-badge {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--primary-color), #0050CC);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.offer-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--dark-text);
+    font-weight: 700;
+}
+
+.offer-description {
+    color: var(--gray-text);
+    margin-bottom: 15px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.offer-code {
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    font-size: 13px;
+    color: var(--gray-text);
+}
+
+.offer-code strong {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+}
+
+/* ============== RESPONSIVE DESIGN ============== */
+
+@media (max-width: 768px) {
+    .page-header-section {
+        padding: 40px 0;
+    }
+
+    .page-header-section h1 {
+        font-size: 32px;
+    }
+
+    .page-header-section p {
+        font-size: 16px;
+    }
+
+    .bus-search-container {
+        padding: 30px 20px;
+    }
+
+    .bus-form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .bus-types-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .bus-card-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .bus-price {
+        text-align: left;
+    }
+
+    .bus-journey-details {
+        padding: 20px;
+    }
+
+    .journey-leg {
+        flex-direction: column;
+    }
+
+    .journey-line {
+        border-bottom: none;
+        border-right: 2px dashed var(--border-color);
+        padding: 20px 0;
+        min-height: 40px;
+    }
+
+    .journey-line::before {
+        right: -15px;
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .bus-card-footer {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .btn-small {
+        width: 100%;
+    }
+
+    .process-steps {
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .step-arrow {
+        transform: rotate(90deg);
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header-section h1 {
+        font-size: 24px;
+    }
+
+    .section-title {
+        font-size: 24px !important;
+    }
+
+    .bus-search-container {
+        padding: 20px 15px;
+    }
+
+    .bus-card-header {
+        padding: 15px;
+    }
+
+    .bus-operator {
+        font-size: 14px;
+    }
+
+    .price-value {
+        font-size: 24px;
+    }
+
+    .bus-amenities {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .amenity {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .bus-types-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-steps {
+        padding: 20px;
+    }
+
+    .step-number {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .offers-grid {
+        grid-template-columns: 1fr;
+    }
+}

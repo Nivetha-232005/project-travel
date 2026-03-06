@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container fade-in">
+    <div class="page-header fade-in-up">
+        <h1 class="text-gradient">Search Results</h1>
+        <p>Found available tickets for your journey</p>
+    </div>
+
+    <div class="search-summary glass fade-in-up delay-200 stagger-children">
+        <div class="summary-item fade-in-up delay-100">
+            <strong>From:</strong> <span class="badge badge-primary">{{ source }}</span>
+        </div>
+        <div class="summary-item fade-in-up delay-200">
+            <strong>To:</strong> <span class="badge badge-primary">{{ destination }}</span>
+        </div>
+        <div class="summary-item fade-in-up delay-300">
+            <strong>Date:</strong> <span class="badge badge-info">{{ travel_date }}</span>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-sm btn-outline underline-animate fade-in-up delay-400">Modify Search</a>
+    </div>
+
+    {% if routes %}
+        <div class="results-container fade-in delay-300">
+            <div class="filters-sidebar glass glass-dark lift-on-hover fade-in-left delay-300">
+                <h3 class="text-gradient">Filter Results</h3>
+                <div class="filter-group fade-in-up delay-100">
+                    <label>Transport Type</label>
+                    <div class="filter-options stagger-children">
+                        <label class="checkbox fade-in-up delay-100"><input type="checkbox"> ✈️ Flight</label>
+                        <label class="checkbox fade-in-up delay-200"><input type="checkbox"> 🚌 Bus</label>
+                        <label class="checkbox fade-in-up delay-300"><input type="checkbox"> 🚂 Train</label>
+                    </div>
+                </div>
+                <div class="filter-group fade-in-up delay-200">
+                    <label>Price Range</label>
+                    <input type="range" min="0" max="500" step="10" class="price-slider">
+                    <div class="price-display badge badge-success">$0 - $500</div>
+                </div>
+                <div class="filter-group fade-in-up delay-300">
+                    <label>Rating</label>
+                    <div class="filter-options stagger-children">
+                        <label class="checkbox fade-in-up delay-100"><input type="checkbox"> ⭐⭐⭐⭐ 4+ Stars</label>
+                        <label class="checkbox fade-in-up delay-200"><input type="checkbox"> ⭐⭐⭐ 3+ Stars</label>
+                        <label class="checkbox fade-in-up delay-300"><input type="checkbox"> All</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tickets-list fade-in-right delay-300">
+                {% for route in routes %}
+                    <div class="ticket-card card-hover lift-on-hover fade-in-up delay-{{ loop.index|string }}00">
+                        <div class="ticket-header">
+                            <div class="transport-info">
+                                <span class="transport-type badge
+                                    {% if route.transport_type == 'Flight' %}badge-info{% elif route.transport_type == 'Bus' %}badge-warning{% else %}badge-secondary{% endif %}">
+                                    {% if route.transport_type == 'Flight' %}
+                                        ✈️ Flight
+                                    {% elif route.transport_type == 'Bus' %}
+                                        🚌 Bus
+                                    {% else %}
+                                        🚂 Train
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="ticket-price">
+                                <span class="price price-highlight text-gradient">₹{{ "%.2f"|format(route.price) }}</span>
+                            </div>
+                        </div>
+
+                        <div class="ticket-journey">
+                            <div class="journey-point">
+                                <div class="time text-gradient">{{ route.departure_time.strftime('%H:%M') }}</div>
+                                <div class="place">{{ route.source }}</div>
+                            </div>
+                            <div class="journey-line glow-on-hover">
+                                <span class="duration">{{ route.duration }}</span>
+                            </div>
+                            <div class="journey-point">
+                                <div class="time text-gradient">{{ route.arrival_time.strftime('%H:%M') }}</div>
+                                <div class="place">{{ route.destination }}</div>
+                            </div>
+                        </div>
+
+                        <div class="ticket-details stagger-children">
+                            <div class="detail-item fade-in-up delay-100">
+                                <span class="detail-label">Amenities:</span>
+                                <span class="detail-value">{{ route.amenities }}</span>
+                            </div>
+                            <div class="detail-item fade-in-up delay-200">
+                                <span class="detail-label">Available Seats:</span>
+                                <span class="detail-value badge badge-success">{{ route.available_seats }} / {{ route.total_seats }}</span>
+                            </div>
+                            <div class="detail-item fade-in-up delay-300">
+                                <span class="detail-label">Rating:</span>
+                                <span class="detail-value text-gradient">⭐ {{ "%.1f"|format(route.rating) }}/5</span>
+                            </div>
+                        </div>
+
+                        <div class="ticket-footer fade-in-up delay-400">
+                            <a href="{{ url_for('book', route_id=route.id) }}" class="btn btn-primary btn-glow">Book Now</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="no-results fade-in zoom-in">
+            <div class="no-results-icon float">🔍</div>
+            <h2 class="text-gradient fade-in-down">No Tickets Found</h2>
+            <p class="fade-in-down delay-200">We couldn't find any tickets for your search criteria. Please try different dates or destinations.</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-glow fade-in-down delay-400">Back to Search</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+{% endblock %}

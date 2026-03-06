@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container fade-in">
+    <div class="error-container">
+        <div class="error-content zoom-in lift-on-hover">
+            <div class="error-code text-gradient fade-in-down">500</div>
+            <h1 class="text-gradient fade-in-down delay-200">Server Error</h1>
+            <p class="fade-in-down delay-400">Oops! Something went wrong on our end. Our team has been notified and is working to fix it.</p>
+            
+            <div class="error-suggestions glass glass-dark lift-on-hover fade-in-up delay-600 stagger-children">
+                <h3 class="text-gradient fade-in-up delay-100">What you can do:</h3>
+                <ul>
+                    <li class="fade-in-up delay-200"><a href="{{ url_for('index') }}" class="btn btn-primary btn-glow">🏠 Go back to Home Page</a></li>
+                    <li class="fade-in-up delay-300"><a href="javascript:history.back()" class="btn btn-outline underline-animate">⬅️ Go back to Previous Page</a></li>
+                    <li class="fade-in-up delay-400 badge badge-warning">🔄 Try refreshing the page</li>
+                    <li class="fade-in-up delay-500 badge badge-info">📧 Contact our support team at <strong>support@travelbook.com</strong></li>
+                </ul>
+            </div>
+
+            <div class="error-illustration float fade-in-up delay-700">
+                ⚠️
+            </div>
+
+            <div class="error-support glass glass-dark fade-in-up delay-800 stagger-children">
+                <p class="fade-in-up delay-100">If this problem persists, please contact our support team.</p>
+                <p class="fade-in-up delay-200"><strong>Phone:</strong> <span class="text-gradient">+1-800-TRAVEL-BOOK</span></p>
+                <p class="fade-in-up delay-300"><strong>Email:</strong> <span class="text-gradient">support@travelbook.com</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .error-container {
+        min-height: calc(100vh - 200px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .error-content {
+        text-align: center;
+        max-width: 500px;
+    }
+
+    .error-code {
+        font-size: 120px;
+        font-weight: 700;
+        color: var(--danger-color);
+        margin-bottom: 20px;
+        opacity: 0.1;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+
+    .error-content h1 {
+        font-size: 36px;
+        margin-bottom: 15px;
+        color: var(--dark-text);
+    }
+
+    .error-content p {
+        font-size: 16px;
+        color: var(--gray-text);
+        margin-bottom: 30px;
+    }
+
+    .error-suggestions {
+        background-color: var(--light-bg);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    .error-suggestions h3 {
+        margin-bottom: 15px;
+        color: var(--dark-text);
+    }
+
+    .error-suggestions ul {
+        list-style: none;
+    }
+
+    .error-suggestions li {
+        margin: 10px 0;
+        color: var(--gray-text);
+    }
+
+    .error-suggestions a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .error-suggestions a:hover {
+        text-decoration: underline;
+    }
+
+    .error-illustration {
+        font-size: 80px;
+        margin: 20px 0;
+    }
+
+    .error-support {
+        background-color: #fff3cd;
+        border-left: 4px solid var(--warning-color);
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .error-support p {
+        margin: 8px 0;
+        color: var(--dark-text);
+    }
+
+    .error-support strong {
+        color: var(--dark-text);
+    }
+</style>
+{% endblock %}

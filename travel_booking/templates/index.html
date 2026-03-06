@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Your Journey Starts Here</h1>
+            <p class="hero-subtitle">Book bus, train, and flight tickets with just a few clicks</p>
+        </div>
+    </section>
+
+    <!-- Search Form Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <form method="POST" action="{{ url_for('search') }}" class="search-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="source">From</label>
+                            <input type="text" id="source" name="source" placeholder="Departure city" required list="cities">
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">To</label>
+                            <input type="text" id="destination" name="destination" placeholder="Destination city" required list="cities">
+                        </div>
+                        <div class="form-group">
+                            <label for="travel_date">Travel Date</label>
+                            <input type="date" id="travel_date" name="travel_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transport_type">Transport Type</label>
+                            <select id="transport_type" name="transport_type">
+                                <option value="All">All Types</option>
+                                <option value="Flight">✈️ Flight</option>
+                                <option value="Train">🚂 Train</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary search-btn">Search Tickets</button>
+                    </div>
+                </form>
+                <datalist id="cities">
+                    <option value="New York">
+                    <option value="Los Angeles">
+                    <option value="Chicago">
+                    <option value="Miami">
+                    <option value="Boston">
+                    <option value="Philadelphia">
+                    <option value="San Francisco">
+                    <option value="Denver">
+                </datalist>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose TravelBook?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Fast Booking</h3>
+                    <p>Book your tickets in seconds with our streamlined booking process</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Best Prices</h3>
+                    <p>Get the best deals on flights, buses, and trains across all routes</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure Payment</h3>
+                    <p>Your payment information is protected with industry-standard encryption</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Book from anywhere, anytime on your phone or computer</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">24/7</div>
+                    <h3>Support</h3>
+                    <p>24/7 customer support to help you with any questions or issues</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Instant Confirmation</h3>
+                    <p>Get instant booking confirmation and digital tickets via email</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Routes Section -->
+    <section class="popular-routes">
+        <div class="container">
+            <h2 class="section-title">Popular Routes</h2>
+            <div class="routes-grid">
+                <div class="route-card">
+                    <div class="route-header">
+                        <span class="transport-badge flight">✈️ Flight</span>
+                        <span class="price">From $299.99</span>
+                    </div>
+                    <h3>New York → Los Angeles</h3>
+                    <p class="duration">5h 30m</p>
+                    <p class="amenities">WiFi, Food Service, Entertainment</p>
+                    <div class="route-footer">
+                        <span class="rating">⭐ 4.8/5</span>
+                        <a href="{{ url_for('index') }}" class="btn btn-sm btn-outline">View Details</a>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-header">
+                        <span class="transport-badge train">🚂 Train</span>
+                        <span class="price">From $89.99</span>
+                    </div>
+                    <h3>New York → Philadelphia</h3>
+                    <p class="duration">2h</p>
+                    <p class="amenities">WiFi, Dining Car, Comfortable Seating</p>
+                    <div class="route-footer">
+                        <span class="rating">⭐ 4.5/5</span>
+                        <a href="{{ url_for('index') }}" class="btn btn-sm btn-outline">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Book Your Next Adventure?</h2>
+            <p>Join thousands of happy travelers and book your journey today!</p>
+            {% if not session.get('user_id') %}
+                <a href="{{ url_for('register') }}" class="btn btn-large btn-primary">Get Started</a>
+            {% else %}
+                <a href="{{ url_for('index') }}" class="btn btn-large btn-primary">Start Searching</a>
+            {% endif %}
+        </div>
+    </section>
+</main>
+{% endblock %}

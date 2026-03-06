@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container fade-in">
+    <div class="confirmation-container">
+        <div class="confirmation-header success zoom-in lift-on-hover">
+            <div class="confirmation-icon bounce">✅</div>
+            <h1 class="text-gradient fade-in-down">Booking Confirmed!</h1>
+            <p class="fade-in-down delay-200">🎉 Your ticket has been successfully booked</p>
+            <div class="success-message glass glow-on-hover fade-in-down delay-400">
+                <strong>✨ Booking is Successfully Completed! ✨</strong>
+            </div>
+        </div>
+
+        <div class="confirmation-ticket glass glass-dark fade-in-up delay-300 stagger-children">
+            <div class="ticket-number card-hover fade-in-up delay-100">
+                <span class="label">Booking Reference:</span>
+                <span class="reference badge badge-success" id="bookingRef">{{ booking.booking_ref }}</span>
+                <button class="btn btn-sm btn-outline underline-animate fade-in-up delay-100" onclick="copyToClipboard()">Copy</button>
+            </div>
+
+            <div class="ticket-content">
+                <div class="ticket-section glass lift-on-hover fade-in-up delay-200">
+                    <h3 class="text-gradient">🛫 Journey Details</h3>
+                    <div class="journey-large card-hover">
+                        <div class="journey-city text-gradient">
+                            <div class="city-code">{{ booking.route.source[:3].upper() }}</div>
+                            <div class="city-name">{{ booking.route.source }}</div>
+                            <div class="time">{{ booking.route.departure_time.strftime('%H:%M') }}</div>
+                        </div>
+                        <div class="journey-middle glow-on-hover">
+                            <div class="duration">{{ booking.route.duration }}</div>
+                            <div class="transport-line float">
+                                {% if booking.route.transport_type == 'Flight' %}
+                                    ✈️
+                                {% elif booking.route.transport_type == 'Bus' %}
+                                    🚌
+                                {% else %}
+                                    🚂
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="journey-city text-gradient">
+                            <div class="city-code">{{ booking.route.destination[:3].upper() }}</div>
+                            <div class="city-name">{{ booking.route.destination }}</div>
+                            <div class="time">{{ booking.route.arrival_time.strftime('%H:%M') }}</div>
+                        </div>
+                    </div>
+                    <div class="journey-date badge badge-info fade-in-up delay-200">
+                        <strong>Date:</strong> {{ booking.travel_date.strftime('%A, %B %d, %Y') }}
+                    </div>
+                </div>
+
+                <div class="ticket-section glass lift-on-hover fade-in-up delay-300">
+                    <h3 class="text-gradient">👤 Passenger Information</h3>
+                    <div class="detail-grid stagger-children">
+                        <div class="detail-item fade-in-up delay-100">
+                            <span class="detail-label">Name:</span>
+                            <span class="detail-value">{{ booking.passenger_name }}</span>
+                        </div>
+                        <div class="detail-item fade-in-up delay-200">
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value">{{ booking.passenger_email }}</span>
+                        </div>
+                        <div class="detail-item fade-in-up delay-300">
+                            <span class="detail-label">Mobile:</span>
+                            <span class="detail-value">{{ booking.passenger_phone }}</span>
+                        </div>
+                        <div class="detail-item fade-in-up delay-400">
+                            <span class="detail-label">Age:</span>
+                            <span class="detail-value">{{ booking.passenger_age }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ticket-section glass lift-on-hover fade-in-up delay-400">
+                    <h3 class="text-gradient">🎫 Seat Information</h3>
+                    <div class="seat-info-large card-hover">
+                        <div class="seat-display badge badge-success text-gradient bounce">{{ booking.seat_number }}</div>
+                        <div class="seat-info-text stagger-children">
+                            <p class="fade-in-up delay-100"><strong>Seat Number:</strong> {{ booking.seat_number }}</p>
+                            <p class="fade-in-up delay-200"><strong>Class:</strong> Standard</p>
+                            <p class="fade-in-up delay-300"><strong>Status:</strong> <span class="status-badge confirmed badge badge-success">Confirmed</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ticket-section glass lift-on-hover fade-in-up delay-500">
+                    <h3 class="text-gradient">💰 Price Summary</h3>
+                    <div class="price-summary stagger-children">
+                        <div class="price-row fade-in-up delay-100">
+                            <span>Ticket Price:</span>
+                            <span>₹{{ "%.2f"|format(booking.price) }}</span>
+                        </div>
+                        <div class="price-row fade-in-up delay-200">
+                            <span>Taxes & Fees:</span>
+                            <span>₹{{ "%.2f"|format(booking.price * 0.05) }}</span>
+                        </div>
+                        <div class="price-row total fade-in-up delay-300">
+                            <span class="text-gradient">Total Amount Paid:</span>
+                            <span class="text-gradient price-highlight">₹{{ "%.2f"|format(booking.price * 1.05) }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ticket-section glass lift-on-hover fade-in-up delay-600">
+                    <h3 class="text-gradient">ℹ️ Important Information</h3>
+                    <ul class="info-list stagger-children">
+                        <li class="fade-in-up delay-100 badge badge-secondary">✓ A confirmation email has been sent to {{ booking.passenger_email }}</li>
+                        <li class="fade-in-up delay-200 badge badge-secondary">✓ Please carry a valid ID along with your ticket</li>
+                        <li class="fade-in-up delay-300 badge badge-secondary">✓ Arrive at least 30 minutes before departure (for flights)</li>
+                        <li class="fade-in-up delay-400 badge badge-secondary">✓ You can view/cancel your booking from your dashboard</li>
+                        <li class="fade-in-up delay-500 badge badge-secondary">✓ Cancellation is free up to 24 hours before departure</li>
+                    </ul>
+                </div>
+
+                <div class="ticket-section glass lift-on-hover fade-in-up delay-700 amenities">
+                    <h3 class="text-gradient">🎁 Amenities Included</h3>
+                    <p class="badge badge-info">{{ booking.route.amenities }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions stagger-children fade-in-up delay-800">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-glow fade-in-up delay-100">View All Bookings</a>
+            <a href="{{ url_for('index') }}" class="btn btn-outline underline-animate fade-in-up delay-200">Book Another Ticket</a>
+        </div>
+
+        <div class="print-section fade-in-up delay-900">
+            <button class="btn btn-secondary btn-glow" onclick="window.print()">🖨️ Print Ticket</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyToClipboard() {
+        const text = document.getElementById('bookingRef').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Booking reference copied to clipboard!');
+        });
+    }
+</script>
+{% endblock %}

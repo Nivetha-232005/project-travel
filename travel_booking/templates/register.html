@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container fade-in">
+    <div class="auth-form-wrapper glass glass-dark">
+        <div class="auth-form-header">
+            <h2 style="color: rgb(199, 60, 60);">Create Your Account</h2>
+            <p>Join TravelBook and book your travel tickets easily</p>
+        </div>
+
+        <form method="POST" class="auth-form stagger-children">
+            <div class="form-group fade-in-up delay-100">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" class="form-control" required>
+            </div>
+
+            <div class="form-group fade-in-up delay-200">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Choose a username" class="form-control" required>
+                <small>Username must be unique</small>
+            </div>
+
+            <div class="form-group fade-in-up delay-300">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" class="form-control" required>
+            </div>
+
+            <div class="form-group fade-in-up delay-400">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="form-control" required>
+            </div>
+
+            <div class="form-group fade-in-up delay-500">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter a strong password" class="form-control" required>
+                <small>Password must be at least 6 characters</small>
+            </div>
+
+            <div class="form-group fade-in-up delay-600">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-glow fade-in-up delay-700">Register Now</button>
+
+            <div class="auth-footer fade-in-up delay-800">
+                <p>Already have an account? <a href="{{ url_for('login') }}" class="underline-animate">Login here</a></p>
+            </div>
+        </form>
+
+        <div class="auth-benefits fade-in-up delay-900">
+            <h3 class="text-gradient">Benefits of Registering:</h3>
+            <ul class="stagger-children">
+                <li class="fade-in-up delay-100">✓ Quick and easy ticket booking</li>
+                <li class="fade-in-up delay-200">✓ View your booking history</li>
+                <li class="fade-in-up delay-300">✓ Save your preferences</li>
+                <li class="fade-in-up delay-400">✓ Get special offers and discounts</li>
+                <li class="fade-in-up delay-500">✓ Manage multiple bookings</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
